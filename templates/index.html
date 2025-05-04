@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prediksi Harga Rumah</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Prediksi Harga Rumah</h2>
+    <form id="predictForm">
+      <label for="overallQual">Kualitas Bangunan (1-10):</label>
+      <input type="number" id="overallQual" name="overallQual" min="1" max="10" required>
+
+      <label for="grLivArea">Luas Bangunan (GrLivArea - sqft):</label>
+      <input type="number" id="grLivArea" name="grLivArea" required>
+
+      <label for="garageCars">Jumlah Mobil di Garasi:</label>
+      <input type="number" id="garageCars" name="garageCars" min="0" max="4" required>
+
+      <label for="totalBsmtSF">Luas Basement (sqft):</label>
+      <input type="number" id="totalBsmtSF" name="totalBsmtSF" required>
+
+      <label for="yearBuilt">Tahun Dibangun:</label>
+      <input type="number" id="yearBuilt" name="yearBuilt" min="1800" max="2025" required>
+
+      <label for="fullBath">Jumlah Kamar Mandi Penuh:</label>
+      <input type="number" id="fullBath" name="fullBath" min="0" max="4" required>
+
+      <button type="submit">Prediksi</button>
+      <div id="result"></div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("predictForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const features = [
+        Number(document.getElementById("overallQual").value),
+        Number(document.getElementById("grLivArea").value),
+        Number(document.getElementById("garageCars").value),
+        Number(document.getElementById("totalBsmtSF").value),
+        Number(document.getElementById("yearBuilt").value),
+        Number(document.getElementById("fullBath").value)
+      ];
+
+      try {
+        const response = await fetch("/predict", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ features: features })
+        });
+
+        const data = await response.json();
+        if (data.prediction !== undefined) {
+          document.getElementById("result").innerText = "Harga rumah diperkirakan: $" + data.prediction.toFixed(2);
+        } else {
+          document.getElementById("result").innerText = "Error: " + data.error;
+        }
+      } catch (err) {
+        document.getElementById("result").innerText = "Terjadi kesalahan saat memproses prediksi.";
+      }
+    });
+  </script>
+</body>
+</html>
