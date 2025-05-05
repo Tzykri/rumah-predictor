@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -7,46 +7,62 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f2f2f2;
-      padding: 20px;
+      background: linear-gradient(120deg, #d4fc79, #96e6a1);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
     .container {
-      max-width: 600px;
-      margin: auto;
       background-color: #ffffff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      max-width: 500px;
+      width: 100%;
     }
     h2 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      color: #333;
     }
     label {
       display: block;
       margin-top: 15px;
+      font-weight: 600;
+      color: #444;
     }
     input {
       width: 100%;
-      padding: 8px;
-      margin-top: 5px;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
       box-sizing: border-box;
+      font-size: 14px;
     }
     button {
-      margin-top: 20px;
+      margin-top: 25px;
       width: 100%;
-      padding: 10px;
-      background-color: #007bff;
+      padding: 12px;
+      background-color: #28a745;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       font-size: 16px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #218838;
     }
     #result {
-      margin-top: 20px;
+      margin-top: 25px;
       font-weight: bold;
       text-align: center;
+      color: #222;
     }
   </style>
 </head>
@@ -57,7 +73,7 @@
       <label for="overallQual">Kualitas Bangunan (1-10):</label>
       <input type="number" id="overallQual" name="overallQual" min="1" max="10" required>
 
-      <label for="grLivArea">Luas Bangunan (GrLivArea - sqft):</label>
+      <label for="grLivArea">Luas Bangunan (sqft):</label>
       <input type="number" id="grLivArea" name="grLivArea" required>
 
       <label for="garageCars">Jumlah Mobil di Garasi:</label>
@@ -72,7 +88,7 @@
       <label for="fullBath">Jumlah Kamar Mandi Penuh:</label>
       <input type="number" id="fullBath" name="fullBath" min="0" max="4" required>
 
-      <button type="submit">Prediksi</button>
+      <button type="submit">Hitung Prediksi</button>
       <div id="result"></div>
     </form>
   </div>
