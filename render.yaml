@@ -1,9 +1,7 @@
 services:
   - type: web
-    name: rumah-predictor-api
-    runtime: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "python app.py"
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.9
+    name: rumah-predictor
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    plan: free
